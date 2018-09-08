@@ -1,19 +1,24 @@
 from collections import defaultdict
 from misc_utils import parse_command_line
-dict_stocks = defaultdict(dict)
+dict1 = defaultdict(dict)
+dict2 = defaultdict(dict)
 
-def stock_store(file_path):
+def stock_store(file_path1,file_path2):
     '''
     Read the text file and store each entry in a
     dictionary with key as Time and value
     as another dictionary having key as Stock
     and value as Price
     '''
-    with open(file_path,'r') as f:
+    with open(file_path1,'r') as f:
         for line in f:
             q = line.strip('\n').split('|')
-            dict_stocks[int(q[0])][q[1]] = float(q[2])
-    return dict_stocks
+            dict1[int(q[0])][q[1]] = float(q[2])
+    with open(file_path2,'r') as f:
+        for line in f:
+            s = line.strip('\n').split('|')
+            dict2[int(s[0])][s[1]] = float(s[2])
+    return dict1,dict2
 
 def max_hour(dict1):
     '''
@@ -50,6 +55,7 @@ def comparision(max_value,window_size,dict1,dict2,output_filepath):
     output file with start and end hour
     '''
     start_hour = min_hour(dict1)
+    print(start_hour)
     end_hour = start_hour + (window_size - 1)
     while end_hour <= max_value:
         error = 0
@@ -74,8 +80,7 @@ def comparision(max_value,window_size,dict1,dict2,output_filepath):
         end_hour = start_hour + (window_size - 1)
 
 def main(windowfile_path,actualfile_path,predictedfile_path,output_file_path):
-    dict1 = stock_store(actualfile_path)
-    dict2 = stock_store(predictedfile_path)
+    dict1,dict2 = stock_store(actualfile_path,predictedfile_path)
     max_value = max_hour(dict1)
     window_size = sliding_windowsize(windowfile_path)
     comparision(max_value,window_size,dict1,dict2,output_file_path)
