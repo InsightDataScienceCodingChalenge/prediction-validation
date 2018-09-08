@@ -1,0 +1,10 @@
+#virtual_environment
+venv/
+
+#pycachefiles
+__pycache__
+
+#executedfiles
+*.pyc
+
+
