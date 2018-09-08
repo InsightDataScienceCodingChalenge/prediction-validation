@@ -4,7 +4,7 @@ Parse command line arguments
 
 import argparse
 
-def parse_command_line() -> argparse.Namespace:
+def parse_command_line():
     '''Return parsed arguments from the command line'''
     parser = argparse.ArgumentParser('script for parsing commandline args')
 
