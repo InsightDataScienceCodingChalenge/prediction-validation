@@ -1,24 +1,19 @@
 from collections import defaultdict
 from misc_utils import parse_command_line
-dict1 = defaultdict(dict)
-dict2 = defaultdict(dict)
 
-def stock_store(file_path1,file_path2):
+def stock_store(file_path1):
     '''
     Read the text file and store each entry in a
     dictionary with key as Time and value
     as another dictionary having key as Stock
     and value as Price
     '''
+    dict_stock = defaultdict(dict)
     with open(file_path1,'r') as f:
         for line in f:
             q = line.strip('\n').split('|')
-            dict1[int(q[0])][q[1]] = float(q[2])
-    with open(file_path2,'r') as f:
-        for line in f:
-            s = line.strip('\n').split('|')
-            dict2[int(s[0])][s[1]] = float(s[2])
-    return dict1,dict2
+            dict_stock[int(q[0])][q[1]] = float(q[2])
+    return dict_stock
 
 def max_hour(dict1):
     '''
@@ -63,16 +58,16 @@ def comparision(max_value,window_size,dict1,dict2,output_filepath):
         for i in range(start_hour,end_hour +1):
             for j in dict1[i]:
                 if j in dict2[i]:
-                    error += round(abs(dict1[i][j] - dict2[i][j]),3)
+                    error += abs(dict1[i][j] - dict2[i][j])
                     count += 1
         if count > 0:
             with open(output_filepath,'a') as f:
                 f.write('{}|{}|{}\n'.format(
                     start_hour,
                     end_hour,
-                    round(error/count,2)
-                )
+                    format(error/count, '0.2f')
                         )
+                    )
         else:
             with open(output_filepath,'a') as f:
                 f.write('{}|{}|{}\n'.format(start_hour,end_hour,'NA'))
@@ -80,7 +75,8 @@ def comparision(max_value,window_size,dict1,dict2,output_filepath):
         end_hour = start_hour + (window_size - 1)
 
 def main(windowfile_path,actualfile_path,predictedfile_path,output_file_path):
-    dict1,dict2 = stock_store(actualfile_path,predictedfile_path)
+    dict1 = stock_store(actualfile_path)
+    dict2 = stock_store(predictedfile_path)
     max_value = max_hour(dict1)
     window_size = sliding_windowsize(windowfile_path)
     comparision(max_value,window_size,dict1,dict2,output_file_path)
