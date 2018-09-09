@@ -6,6 +6,10 @@ from helper import stock_store,max_hour,sliding_windowsize,comparison
 def main(windowfile_path,actualfile_path,predictedfile_path,output_file_path):
     '''
     It executes the whole algo step by step
+    :param windowfile_path --> path to sliding window size file
+    :param actualfile_path --> path to actual stock data file
+    :param predictedfile_path --> path to predicted stock data file
+    :param output_file_path --> path to output file to be generated
     '''
     dictstock_actual = stock_store(actualfile_path)
     dictstock_predicted = stock_store(predictedfile_path)

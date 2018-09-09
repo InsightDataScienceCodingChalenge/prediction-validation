@@ -6,6 +6,7 @@ def stock_store(file_path):
     dictionary with key as Time and value
     as another dictionary having key as Stock
     and value as Price
+    :param file_path --> path of the file of stock data
     '''
     dict_stock = defaultdict(dict)
     with open(file_path,'r') as f:
@@ -17,6 +18,7 @@ def stock_store(file_path):
 def max_hour(dictstock_actual):
     '''
     Run through the dictionary of actual.txt and finds the max hour entry
+    :param dictstock_actual-->dictionary with stock entries of actual text file
     '''
     max_value = next(iter(dictstock_actual.keys()))
     for i in dictstock_actual:
@@ -27,6 +29,7 @@ def max_hour(dictstock_actual):
 def min_hour(dictstock_actual):
     '''
     Run through the dictionary of actual.txt and finds the min hour entry
+    :param dictstock_actual-->dictionary with stock entries of actual text file
     '''
     min_value = next(iter(dictstock_actual.keys()))
     for i in dictstock_actual:
@@ -37,6 +40,7 @@ def min_hour(dictstock_actual):
 def sliding_windowsize(windowfile):
     '''
     Reads the window.txt file and returns the sliding window_size
+    :param windowfile-->path of the sliding window text file.
     '''
     with open(windowfile,'r') as f:
         for line in f:
@@ -51,6 +55,10 @@ def comparison(max_value,
     '''
     calculates the average error and writes to the
     output file with start and end hour
+    :param max_value --> maximum hour entry in the actual stock data file
+    :param dictstock_actual --> dictionary having entries of actual text file
+    :param dictstock_predicted --> dictionary having entries of predicted file
+    :param output_filepath --> path of the output file to be generated
     '''
     start_hour = min_hour(dictstock_actual)
     end_hour = start_hour + (window_size - 1)
