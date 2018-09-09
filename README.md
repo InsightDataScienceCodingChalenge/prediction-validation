@@ -23,3 +23,6 @@
 * Install Virtual environment and run the bash script from it and can install any other modules using pip install in virtual environment if required.
 * Run shell script run.sh which will execute python main.py
 
+## Test Details
+
+* As mentioned, Some of the average error values are +/- 0.01 of the expected value due to rounding issue and for the same did not pass the test case.
