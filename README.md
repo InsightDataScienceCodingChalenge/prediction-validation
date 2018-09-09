@@ -20,5 +20,6 @@
 
 ## Execution detials
 
+* Install Virtual environment and run the bash script from it and can install any other modules using pip install in virtual environment if required.
 * Run shell script run.sh which will execute python main.py
 
