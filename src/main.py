@@ -58,7 +58,7 @@ def comparision(max_value,window_size,dict1,dict2,output_filepath):
         for i in range(start_hour,end_hour +1):
             for j in dict1[i]:
                 if j in dict2[i]:
-                    error += abs(dict1[i][j] - dict2[i][j])
+                    error += round(abs(dict1[i][j] - dict2[i][j]),2)
                     count += 1
         if count > 0:
             with open(output_filepath,'a') as f:
