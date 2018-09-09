@@ -1,7 +1,5 @@
 from collections import defaultdict
 from misc_utils import parse_command_line
-#dict1 = defaultdict(dict)
-#dict2 = defaultdict(dict)
 
 def stock_store(file_path1):
     '''
@@ -15,10 +13,6 @@ def stock_store(file_path1):
         for line in f:
             q = line.strip('\n').split('|')
             dict_stock[int(q[0])][q[1]] = float(q[2])
-    #with open(file_path2,'r') as f:
-     #   for line in f:
-      #      s = line.strip('\n').split('|')
-       #     dict2[int(s[0])][s[1]] = float(s[2])
     return dict_stock
 
 def max_hour(dict1):
@@ -64,7 +58,7 @@ def comparision(max_value,window_size,dict1,dict2,output_filepath):
         for i in range(start_hour,end_hour +1):
             for j in dict1[i]:
                 if j in dict2[i]:
-                    error += abs(dict1[i][j] - dict2[i][j])
+                    error += float(format(abs(dict1[i][j] - dict2[i][j]),'0.5f'))
                     count += 1
         if count > 0:
             with open(output_filepath,'a') as f:
